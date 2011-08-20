@@ -6,7 +6,7 @@ class Tree
   
   def add(*values)
     if values.length > 1
-      values.each { |val| add(val) }
+      values.map { |val| add(val) }
     else
       if base_node
         base_node.hang(values.first)
