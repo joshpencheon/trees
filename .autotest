@@ -1,0 +1,17 @@
+require "ZenTest"
+require "autotest/growl"
+require "autotest/fsevent"
+
+class Autotest
+  def test_files_for(filename)
+    return Dir["test/**/*.rb"]
+  end
+end
+
+Autotest.add_hook :initialize do |autotest|
+  %w{.git .svn .hg .DS_Store ._* .rvmrc .autotest README Rakefile}.each do |exception|
+    autotest.add_exception(exception)
+  end
+  
+  autotest.testlib = 'minitest/unit'  
+end
