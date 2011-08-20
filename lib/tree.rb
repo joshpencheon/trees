@@ -27,7 +27,7 @@ class Tree
   
   def nodes
     if base_node
-      base_node.child_nodes
+      [base_node] + base_node.child_nodes
     else
       []
     end
