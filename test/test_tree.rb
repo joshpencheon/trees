@@ -51,6 +51,22 @@ describe Tree do
       end    
       
     end
+    
+    describe "when rehanging" do
+
+      before(:each) do
+        @tree.add((10...100).to_a)
+        @tree.rehang!
+      end
       
+      it "should hang all values at similar depth" do
+        depths = @tree.nodes.select(&:leaf?).map do |node|
+          @tree.path_to(node.value).length
+        end
+        
+        depths.max.must_be_close_to(depths.min, 1)
+      end
+      
+    end
   end
 end

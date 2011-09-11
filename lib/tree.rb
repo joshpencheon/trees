@@ -6,6 +6,13 @@ class Tree
   def initialize
   end
   
+  def rehang!
+    values = nodes.map(&:value)
+    self.base_node = nil
+    rehang_array(values)
+    true
+  end
+  
   def add(*values)
     if values.length > 1
       values.map { |val| add(val) }
@@ -43,5 +50,20 @@ class Tree
     else
       puts '[empty]'
     end
+  end
+  
+  private
+  
+  def rehang_array(array)
+    centre = (array.length.to_f / 2).floor
+    sorted_array = array.sort
+
+    add(sorted_array.at(centre))
+    
+    left_array  = sorted_array.slice(0, centre)
+    right_array = sorted_array.slice(centre + 1, sorted_array.length - 1)
+    
+    rehang_array(left_array)  unless left_array.length.zero?
+    rehang_array(right_array) unless right_array.length.zero?
   end
 end
