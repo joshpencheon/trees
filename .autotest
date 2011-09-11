@@ -8,6 +8,12 @@ class Autotest
   end
 end
 
+Autotest.add_hook :run_command do |autotest|
+  Autotest::Growl.class_eval do
+    growl(@label + 'Running test suite.', 'Working...', 'pending')
+  end
+end
+
 Autotest.add_hook :initialize do |autotest|
   %w{.git .svn .hg .DS_Store ._* .rvmrc .autotest README Rakefile}.each do |exception|
     autotest.add_exception(exception)
